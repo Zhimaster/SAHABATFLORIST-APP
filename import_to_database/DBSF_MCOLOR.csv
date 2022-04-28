@@ -1,0 +1,92 @@
+COLOR_ID;COLOR_CODE;COLOR_NAME;ACTIVE_FLAG
+1;BK;Black;TRUE
+2;BKRD;Black Red;TRUE
+3;BL;Blue;TRUE
+4;BLMX;Blue Mix;TRUE
+5;BLTOSCA;Blue Tosca;TRUE
+6;BLWH;Blue White;TRUE
+7;BW;Brown;TRUE
+8;BG;Burgundi;TRUE
+9;CR;Cream;TRUE
+10;CRGR;Cream Green;TRUE
+11;CRMX;Cream Mix;TRUE
+12;CRPE;Cream Peach;TRUE
+13;CRPK;Cream Pink;TRUE
+14;CRYL;Cream Yellow;TRUE
+15;DGR;Dark Green;TRUE
+16;DOR;Dark Orange;TRUE
+17;DPE;Dark Peach;TRUE
+18;DPK;Dark Pink;TRUE
+19;DPP;Dark Purple;TRUE
+20;DYL;Dark Yellow;TRUE
+21;FT;Fanta;TRUE
+22;FTCR;Fanta Cream;TRUE
+23;FTMX;Fanta Mix;TRUE
+24;FTPKCR;Fanta Pink Cream;TRUE
+25;FTWH;Fanta White;TRUE
+26;GL;Gold;TRUE
+27;GR;Green;TRUE
+28;GRCR;Green Cream;TRUE
+29;GRMX;Green Mix;TRUE
+30;GRWH;Green White;TRUE
+31;GRYL;Green Yellow;TRUE
+32;LBL;Light Blue;TRUE
+33;LGR;Light Green;TRUE
+34;LOR;Light Orange;TRUE
+35;LPE;Light Peach;TRUE
+36;LPK;Light Pink;TRUE
+37;LPP;Light Purple;TRUE
+38;LYL;Light Yellow;TRUE
+39;MR;Maroon;TRUE
+40;OR;Orange;TRUE
+41;ORMX;Orange Mix;TRUE
+42;ORYL;Orange Yellow;TRUE
+43;PE;Peach;TRUE
+44;PEBG;Peach Burgundi;TRUE
+45;PK;Pink;TRUE
+46;PKCR;Pink Cream;TRUE
+47;PKFT;Pink Fanta;TRUE
+48;PKPE;Pink Peach;TRUE
+49;PKWH;Pink White;TRUE
+50;PP;Purple;TRUE
+51;PPCR;Purple Cream;TRUE
+52;PPMX;Purple Mix;TRUE
+53;PP TUTUL;Purple Tutul;TRUE
+54;PPWH;Purple White;TRUE
+55;RD;Red;TRUE
+56;RDBK;Red Black;TRUE
+57;WH;White;TRUE
+58;WHGR;White Green;TRUE
+59;WHLGR;White Light Green;TRUE
+60;WHPP;White Purple;TRUE
+61;YL;Yellow;TRUE
+62;YLFT;Yellow Fanta;TRUE
+63;YLGR;Yellow Green;TRUE
+64;YLOR;Yellow Orange;TRUE
+65;GRRD;Green Red;TRUE
+66;WHBG;White Burgundi;TRUE
+67;CRFT;Cream Fanta;TRUE
+68;PKMX;Pink Mix;TRUE
+69;RDGR;Red  Green;TRUE
+70;CRPP;Cream Purple;TRUE
+71;PEMX;Peach Mix;TRUE
+72;GRMX TGK GR;Green Mix T Green;TRUE
+73;FTPK;Fanta Pink;TRUE
+74;SL;Silver;TRUE
+75;DBW;Dark Brown;TRUE
+76;LBW;Light Brown;TRUE
+77;BGYL;Burgundi Yellow;TRUE
+78;BWOR;Brown Orange;TRUE
+79;DPKCR;Dark Pink Cream;TRUE
+80;PECR;Peach Cream;TRUE
+81;PPGY;Purple Grey;TRUE
+82;PPYL;Purple Yellow;TRUE
+83;YLMX;Yellow Mix;TRUE
+84;PP URAT;Purple urat;TRUE
+85;GR TOSCA;Green Tosca;TRUE
+86;DCR;Dark Cream;TRUE
+87;DBL;Dark Blue;TRUE
+88;BGPE;Burgundi Peach;TRUE
+89;LCR;Light Cream;TRUE
+90;BULE;White Cream;TRUE
+91;YLSTA;Yellow Star;TRUE

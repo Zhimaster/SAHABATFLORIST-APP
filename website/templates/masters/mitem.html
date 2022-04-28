@@ -1,0 +1,183 @@
+{% extends 'layout.html' %}
+ 
+{% block top_script %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='Select-1.3.4/css/select.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block title %} Master Item {% endblock %}
+  
+{% block body %}
+
+<div class="row">
+    <div class="col">        
+        <h1 class="display-6">Manage <b>Master Item</b>
+            <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#mymodal">Add New Item</button>
+        </h1>
+        <table id="tablemaster" class="table table-sm table-striped table-hover">
+            <thead>
+            <tr>
+                <th class="visually-hidden-focusable"># Id</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Color</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in mitems %}
+            <tr>
+                <td class="visually-hidden-focusable">{{row.item_id}}</td>
+                <td>{{row.item_code}}</td>
+                <td>{{row.item_name}}</td>
+                <td>{{row.category_name}}</td>
+                <td>{{row.color_name}}</td>
+                <td>{{row.status_name}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#modaledit{{row.item_id}}">Edit</button>
+                    <button type="button" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#modaldelete{{row.item_id}}">Del</button>
+                </td>
+            </tr>
+            <!-- Modal Edit-->
+            <div id="modaledit{{row.item_id}}" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="staticBackdropLabel">Update Information</h4>
+                            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% from "includes/_formhelpers.html" import render_field %}
+                            <form action="{{url_for('mitem.update',id=row.item_id)}}" method="POST">               
+                                <div class="form-group visually-hidden-focusable">
+                                    <label for="itemid{{row.item_id}}">Item ID</label>
+                                    <input class="form-control" id="itemid{{row.item_id}}" name="itemid{{row.item_id}}" type="text" value="{{row.item_id}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="itemcode{{row.item_id}}">Item Code</label>
+                                    <input class="form-control" id="itemcode{{row.item_id}}" name="itemcode{{row.item_id}}" type="text" value="{{row.item_code}}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="itemname{{row.item_id}}">Item Name</label>
+                                    <input class="form-control" id="itemname{{row.item_id}}" name="itemname{{row.item_id}}" type="text" value="{{row.item_name}}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="itemtype{{row.item_id}}">Item Type</label>
+                                    <input class="form-control" id="itemtype{{row.item_id}}" name="itemtype{{row.item_id}}" type="text" value="{{row.item_type}}">
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        {{render_field(form.itemcategory, class_="form-control genitem", id="itemcategory"+row.item_id|safe)}}
+                                    </div>
+                                </div>                                   
+                        </div>
+                        <div class="modal-footer">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Delete-->
+            <div id="modaldelete{{row.item_id}}" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="staticBackdropLabel">Delete Data</h4>
+                            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('mitem.delete',id=row.item_id)}}" method="POST">               
+                                <div class="form-group">
+                                    <p>Are you sure to delete item "{{ row.item_name }}" ?</p>
+                                </div>                                 
+                        </div>
+                        <div class="modal-footer">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Yes</button>
+                                    <button type="button" class="btn btn-secondary" aria-label="Close" data-bs-dismiss="modal">No</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            {% endfor %}
+            </tbody>
+        </table>
+  
+        <!-- Modal Add-->
+        <div class="modal fade" id="mymodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="staticBackdropLabel">Add Item</h4>
+                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% from "includes/_formhelpers.html" import render_field %}
+                        <form action="{{url_for('mitem.insert')}}" method="POST">               
+                            <div class="form-group">
+                                {{render_field(form.itemname, class_="form-control", readonly="readonly", id="itemnamenew")}}
+                            </div>
+                            <div class="form-group">
+                                {{render_field(form.itemtype, class_="form-control genitem", id="itemtypenew")}}
+                            </div>
+                            <div class="form-group">
+                                {{render_field(form.itemcategory, class_="form-control genitem", id="itemcategorynew")}}
+                            </div>
+                            <div class="form-group">
+                                {{render_field(form.itemcolor, class_="form-control genitem", id="itemcolornew")}}
+                            </div>
+                            <div class="form-group">
+                                {{render_field(form.itemuom, class_="form-control", id="itemuomnew")}}
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button class="btn btn-primary float-end" type="submit">Save</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block bottom_script%}
+    <script type="text/javascript" src="{{ url_for('static', filename='Select-1.3.4/js/dataTables.select.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            function generate_itemname(category_id,item_type,color_id) {
+                $.ajax({
+                    url: "{{url_for('mitem.genitemname')}}",
+                    method: "POST",
+                    data: { category_id: category_id, item_type: item_type, color_id: color_id },
+                    datatype: "json",
+                    success: function (response) {                     
+                        $("#itemnamenew").val(response);
+                    },
+                });
+            }
+
+            $('.genitem').change(function () {
+                var id = this.id;
+                var category_id = $("#itemcategorynew").val();
+                var item_type = $("#itemtypenew").val();
+                var color_id = $("#itemcolornew").val();
+                alert(id);
+                //alert(category_id+'-'+item_type+'-'+color_id);
+                if (category_id != '' && item_type != '' && color_id != '') {
+                    generate_itemname(category_id,item_type,color_id);
+                };                
+            });
+        })
+    </script>
+{% endblock %}

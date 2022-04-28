@@ -1,0 +1,122 @@
+{% extends 'layout.html' %}
+ 
+{% block title %} Master Color {% endblock %}
+  
+{% block body %}
+
+<div class="row">
+    <div class="col">        
+        <h1 class="display-6">Manage <b>Master Color</b>
+            <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#mymodal">Add New Color</button>
+        </h1>
+        <table id="tablemaster" class="table table-sm table-striped table-hover">
+            <thead>
+            <tr>
+                <th># Id</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in mcolors %}
+            <tr>
+                <td>{{row.color_id}}</td>
+                <td>{{row.color_code}}</td>
+                <td>{{row.color_name}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#modaledit{{row.color_id}}">Edit</button>
+                    <button type="button" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#modaldelete{{row.color_id}}">Del</button>
+                </td>
+            </tr>
+            <!-- Modal Edit-->
+            <div id="modaledit{{row.color_id}}" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="staticBackdropLabel">Update Information</h4>
+                            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('mcolor.update',id=row.color_id)}}" method="POST">               
+                                <div class="form-group visually-hidden-focusable">
+                                    <label for="colorid{{row.color_id}}">Color ID</label>
+                                    <input class="form-control" id="colorid{{row.color_id}}" name="colorid{{row.color_id}}" type="text" value="{{row.color_id}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="colorcode{{row.color_id}}">Color Code</label>
+                                    <input class="form-control" id="colorcode{{row.color_id}}" name="colorcode{{row.color_id}}" type="text" value="{{row.color_code}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="colorname{{row.color_id}}">Color Name</label>
+                                    <input class="form-control" id="colorname{{row.color_id}}" name="colorname{{row.color_id}}" type="text" value="{{row.color_name}}">
+                                </div>                                    
+                        </div>
+                        <div class="modal-footer">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Delete-->
+            <div id="modaldelete{{row.color_id}}" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="staticBackdropLabel">Delete Data</h4>
+                            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('mcolor.delete',id=row.color_id)}}" method="POST">               
+                                <div class="form-group">
+                                    <p>Are you sure to delete color "{{ row.color_name }}" ?</p>
+                                </div>                                 
+                        </div>
+                        <div class="modal-footer">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Yes</button>
+                                    <button type="button" class="btn btn-secondary" aria-label="Close" data-bs-dismiss="modal">No</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            {% endfor %}
+            </tbody>
+        </table>
+  
+        <!-- Modal Add-->
+        <div class="modal fade" id="mymodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="staticBackdropLabel">Add Color</h4>
+                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% from "includes/_formhelpers.html" import render_field %}
+                        <form action="{{url_for('mcolor.insert')}}" method="POST">               
+                            <div class="form-group">
+                                {{render_field(form.colorcode, class_="form-control")}}
+                            </div>
+                            <div class="form-group">
+                                {{render_field(form.colorname, class_="form-control")}}
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button class="btn btn-primary float-end" type="submit">Save</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+    
+</div>
+{% endblock %}

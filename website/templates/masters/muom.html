@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+ 
+{% block title %} Master UOM {% endblock %}
+  
+{% block body %}
+
+<div class="row">
+    <div class="col">        
+        <h1 class="display-6">Manage <b>Master UOM</b>
+            <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#mymodal">Add New UOM</button>
+        </h1>
+        <table id="tablemaster" class="table table-sm table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in muoms %}
+            <tr>
+                <td>{{row.uom_code}}</td>
+                <td>{{row.uom_name}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#modaledit{{row.uom_code}}">Edit</button>
+                    <button type="button" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#modaldelete{{row.uom_code}}">Del</button>
+                </td>
+            </tr>
+            <!-- Modal Edit-->
+            <div id="modaledit{{row.uom_code}}" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="staticBackdropLabel">Update Information</h4>
+                            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('muom.update',id=row.uom_code)}}" method="POST">               
+                                <div class="form-group">
+                                    <label for="uomcode{{row.uom_code}}">UOM Code</label>
+                                    <input class="form-control" id="uomcode{{row.uom_code}}" name="uomcode{{row.uom_code}}" type="text" value="{{row.uom_code}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="uomname{{row.uom_code}}">UOM Name</label>
+                                    <input class="form-control" id="uomname{{row.uom_code}}" name="uomname{{row.uom_code}}" type="text" value="{{row.uom_name}}">
+                                </div>                                    
+                        </div>
+                        <div class="modal-footer">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Delete-->
+            <div id="modaldelete{{row.uom_code}}" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="staticBackdropLabel">Delete Data</h4>
+                            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('muom.delete',id=row.uom_code)}}" method="POST">               
+                                <div class="form-group">
+                                    <p>Are you sure to delete color "{{ row.uom_name }}" ?</p>
+                                </div>                                 
+                        </div>
+                        <div class="modal-footer">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Yes</button>
+                                    <button type="button" class="btn btn-secondary" aria-label="Close" data-bs-dismiss="modal">No</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            {% endfor %}
+            </tbody>
+        </table>
+  
+        <!-- Modal Add-->
+        <div class="modal fade" id="mymodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="staticBackdropLabel">Add UOM</h4>
+                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% from "includes/_formhelpers.html" import render_field %}
+                        <form action="{{url_for('muom.insert')}}" method="POST">               
+                            <div class="form-group">
+                                {{render_field(form.uomcode, class_="form-control")}}
+                            </div>
+                            <div class="form-group">
+                                {{render_field(form.uomname, class_="form-control")}}
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button class="btn btn-primary float-end" type="submit">Save</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+    
+</div>
+{% endblock %}
